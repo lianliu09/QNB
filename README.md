@@ -18,8 +18,10 @@ Installation
 
 QNB depends on DESeq and please make sure install them before installing QNB The package can be installed as:
 
+
 source("http://bioconductor.org/biocLite.R")
 biocLite("DESeq")
+
 In addtion, R package devtools is required for QNB to be installed from GitHub.
 
 install.packages("devtools")
@@ -29,7 +31,7 @@ library("devtools")
 install_github("lianliu09/QNB")
 Toy Example
 
-# using the data included in the package
+# using the data included in the package with replicates
 library(QNB)
 f1 <- system.file("extdata", "meth1.txt", package="QNB")
 f2 <- system.file("extdata", "meth2.txt", package="QNB")
@@ -45,7 +47,7 @@ unmeth2 <- read.table(f4,header=TRUE)
 #"mode=pooled" to estimate the dispersion. The default is "per-condition". 
 result <- qnbtest(meth1, meth2,unmeth1,unmeth2)
 
-#If you have replicates for one condition but not for the other,or there are no replicates for tow conditions, you can select #"mode="blind"" to estimate the dispersion.
+#without replicates
 f1 <- system.file("extdata", "no_rep_meth1.txt", package="QNB")
 f2 <- system.file("extdata", "no_rep_meth2.txt", package="QNB")
 f3 <- system.file("extdata", "no_rep_unmeth1.txt", package="QNB")
@@ -63,5 +65,5 @@ result = qnbtest(no_rep_meth1,
                  no_rep_unmeth2,
                  mode="blind")
 
-#If you could not decide which mode to estimate dispersion, "mode="auto"" will select suitable way to estimate dispersion #according to the replicates.
+#mode is auto
 result = qnbtest(meth1, meth2,unmeth1,unmeth2,mode="auto")
