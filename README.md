@@ -34,31 +34,40 @@ Toy Example
 # using the data included in the package with replicates
 library(QNB)
 f1 <- system.file("extdata", "meth1.txt", package="QNB")
+
 f2 <- system.file("extdata", "meth2.txt", package="QNB")
+
 f3 <- system.file("extdata", "unmeth1.txt", package="QNB")
+
 f4 <- system.file("extdata", "unmeth2.txt", package="QNB")
 
 meth1 <- read.table(f1,header=TRUE)
+
 meth2 <- read.table(f2,header=TRUE)
+
 unmeth1 <- read.table(f3,header=TRUE)
+
 unmeth2 <- read.table(f4,header=TRUE)
 
-#When there are replicates under two conditions, we could select "mode=per-conditon" or 
-#"mode=pooled" to estimate the dispersion. The default is "per-condition". 
 result <- qnbtest(meth1, meth2,unmeth1,unmeth2)
 
 #without replicates
 f1 <- system.file("extdata", "no_rep_meth1.txt", package="QNB")
+
 f2 <- system.file("extdata", "no_rep_meth2.txt", package="QNB")
+
 f3 <- system.file("extdata", "no_rep_unmeth1.txt", package="QNB")
+
 f4 <- system.file("extdata", "no_rep_unmeth2.txt", package="QNB")
 
 no_rep_meth1 <- read.table(f1,header=TRUE)
+
 no_rep_meth2 <- read.table(f2,header=TRUE)
+
 no_rep_unmeth1 <- read.table(f3,header=TRUE)
+
 no_rep_unmeth2 <- read.table(f4,header=TRUE)
-head(no_rep_meth1)
-head(no_rep_unmeth1)
+
 result = qnbtest(no_rep_meth1, 
                  no_rep_meth2,
                  no_rep_unmeth1,
