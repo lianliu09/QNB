@@ -97,10 +97,39 @@ Lian Liu <liulian19860905@163.com>
 # load library and specify the parameters
 library("QNB")
 
-path=system.file("extdata", "MeRIP_Data.RData", package="QNB")
-load(path)
-#with replicates, and the number of replicate for meth and unmeth must be the same, but meth1 and #meth2 may be different
+f1 <- system.file("extdata", "meth1.txt", package="QNB")
+f2 <- system.file("extdata", "meth2.txt", package="QNB")
+f3 <- system.file("extdata", "unmeth1.txt", package="QNB")
+f4 <- system.file("extdata", "unmeth2.txt", package="QNB")
+
+meth1 <- read.table(f1,header=TRUE)
+meth2 <- read.table(f2,header=TRUE)
+unmeth1 <- read.table(f3,header=TRUE)
+unmeth2 <- read.table(f4,header=TRUE)
+#When there are replicates under two conditions, we could select "mode=per-conditon" or 
+#"mode=pooled" to estimate the dispersion. The default is "per-condition". 
 res=QNB(meth1,meth2,unmeth1,unmeth2)
+
+#If you have replicates for one condition but not for the other,or there are no replicates for tow conditions, you can select "mode="blind"" to estimate the dispersion.
+f1 <- system.file("extdata", "no_rep_meth1.txt", package="QNB")
+f2 <- system.file("extdata", "no_rep_meth2.txt", package="QNB")
+f3 <- system.file("extdata", "no_rep_unmeth1.txt", package="QNB")
+f4 <- system.file("extdata", "no_rep_unmeth2.txt", package="QNB")
+
+no_rep_meth1 <- read.table(f1,header=TRUE)
+no_rep_meth2 <- read.table(f2,header=TRUE)
+no_rep_unmeth1 <- read.table(f3,header=TRUE)
+no_rep_unmeth2 <- read.table(f4,header=TRUE)
+head(no_rep_meth1)
+head(no_rep_unmeth1)
+result = qnbtest(no_rep_meth1, 
+                 no_rep_meth2,
+                 no_rep_unmeth1,
+                 no_rep_unmeth2,
+                 mode="blind")
+                 
+#If you could not decide which mode to estimate dispersion, "mode="auto"" will select suitable way to estimate dispersion according to the replicates.
+result = qnbtest(meth1, meth2,unmeth1,unmeth2,mode="auto")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
