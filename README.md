@@ -33,6 +33,7 @@ Toy Example
 
 # using the data included in the package with replicates
 library(QNB)
+
 f1 <- system.file("extdata", "meth1.txt", package="QNB")
 
 f2 <- system.file("extdata", "meth2.txt", package="QNB")
